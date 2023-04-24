@@ -6,8 +6,8 @@
 #define LIBSAHARA_URL_H
 #include <string>
 namespace sahara::coder {
-  std::string url_encode(const std::string& str);
-  std::string url_decode(const std::string& str);
+    sahara::string url_encode(const sahara::string& str);
+    sahara::string url_decode(const sahara::string& str);
 } // sahara::coder
 
 #endif //LIBSAHARA_URL_H

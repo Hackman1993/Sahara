@@ -3,9 +3,12 @@
 //
 
 #include "time/timestamp.h"
+#include "string/string.h"
+#include <iomanip>
+#include <sstream>
 
 namespace sahara::time {
-  timestamp timestamp::from_string(const std::string& time, const std::string& format){
+  timestamp timestamp::from_string(const sahara::string& time, const sahara::string& format){
     return timestamp{parse_time_(time, format)};
   }
 
@@ -49,14 +52,14 @@ namespace sahara::time {
     return *this;
   }
 
-  std::string timestamp::to_string(const std::string &format) const  {
+    sahara::string timestamp::to_string(const sahara::string &format) const  {
     std::time_t time = std::chrono::system_clock::to_time_t(timepoint_);
     std::stringstream ss;
-    ss << std::put_time(std::localtime(&time), format.c_str());
+    ss << std::put_time(std::localtime(&time), format.to_std().c_str());
     return ss.str();
   }
 
-  std::chrono::system_clock::time_point timestamp::parse_time_(const std::string &time_str, const std::string &format) {
+  std::chrono::system_clock::time_point timestamp::parse_time_(const sahara::string &time_str, const sahara::string &format) {
     std::istringstream ss(time_str);
     std::tm tm_time{};
     ss >> std::get_time(&tm_time, format.c_str());

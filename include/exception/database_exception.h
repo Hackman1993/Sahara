@@ -8,7 +8,7 @@
 namespace sahara::exception{
     class database_exception : public exception_base{
     public:
-      database_exception(std::size_t code, const std::string& message): exception_base(message), code_(code){}
+      database_exception(std::size_t code, const sahara::string& message): exception_base(message), code_(code){}
     protected:
       std::size_t code_ = 0;
     };

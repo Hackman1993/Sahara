@@ -4,15 +4,16 @@
 
 #include <chrono>
 #include <string>
+#include <fmt/format.h>
 #include "time_duration.h"
 #include "exception/conversion_exception.h"
-
+#include "string/string.h"
 namespace sahara::time {
   class timestamp {
   public:
     timestamp(): timepoint_(std::chrono::system_clock::now()) {}
     timestamp(std::chrono::system_clock::time_point timepoint): timepoint_(timepoint) {}
-    static timestamp from_string(const std::string& time, const std::string& format = "%Y-%m-%d %H:%M:%S");
+    static timestamp from_string(const sahara::string& time, const sahara::string& format = "%Y-%m-%d %H:%M:%S");
 
     time_duration operator-(const timestamp& other) const;
 
@@ -27,15 +28,16 @@ namespace sahara::time {
     timestamp operator-=(const time_duration& duration);
     timestamp operator-=(const std::chrono::system_clock::duration& duration);
 
-    std::string to_string(const std::string& format = "%Y-%m-%d %H:%M:%S") const;
+      sahara::string to_string(const sahara::string& format = "%Y-%m-%d %H:%M:%S") const;
 
   protected:
     static std::chrono::system_clock::time_point parse_time_(const std::string& time_str, const std::string& format = "%Y-%m-%d %H:%M:%S");
     std::chrono::system_clock::time_point timepoint_;
   };
 } // sahara::time
+
 template <>
-struct std::formatter<sahara::time::timestamp> {
+struct fmt::formatter<sahara::time::timestamp> {
   constexpr auto parse(format_parse_context& ctx) { return ctx.begin(); }
 
   template <typename FormatContext>

@@ -5,25 +5,27 @@
 #ifndef LIBSAHARA_NULLABLE_H
 #define LIBSAHARA_NULLABLE_H
 #include <string>
-#include <format>
+#include <fmt/format.h>
 #include <variant>
 #include "dirtyable.h"
 #include "../time/timestamp.h"
+#include "string/string.h"
 #include <boost/format.hpp>
 namespace sahara::types{
   template <typename BaseType>
   class nullable : public std::variant<BaseType, std::nullptr_t>, public dirtyable{
   public:
-    nullable &operator=(BaseType value){
-      std::variant<BaseType, std::nullptr_t>::operator=(value);
-      dirty_ = true;
-      return *this;
-    }
-    nullable &operator=(std::nullptr_t value){
-      std::variant<BaseType, std::nullptr_t>::operator=(value);
-      dirty_ = true;
-      return *this;
-    }
+//    nullable &operator=(BaseType value){
+//      std::variant<BaseType, std::nullptr_t>::operator=(value);
+//      dirty_ = true;
+//      return *this;
+//    }
+    using std::variant<BaseType, std::nullptr_t>::operator=;
+//    nullable &operator=(std::nullptr_t value){
+//      std::variant<BaseType, std::nullptr_t>::operator=(value);
+//      dirty_ = true;
+//      return *this;
+//    }
 
     template <typename U = BaseType>
     nullable(typename std::enable_if<!std::is_same_v<bool, U>, bool>::type dirty = false): dirtyable(false){
@@ -45,15 +47,15 @@ namespace sahara::types{
     }
 
     template<typename Type = BaseType>
-    std::enable_if_t<(std::is_same_v<Type, std::string> || std::is_same_v<Type,sahara::time::timestamp>) , std::string> json(){
+    std::enable_if_t<(std::is_same_v<Type, sahara::string> || std::is_same_v<Type,sahara::time::timestamp>) , sahara::string> json(){
       if(is_null()) return "null";
-      return std::format("\"{}\"", std::get<BaseType>(*this));
+      return sahara::string::static_format(("\"{}\"", std::get<BaseType>(*this)));
     }
 
     template<typename Type = BaseType>
-     std::enable_if_t<(!std::is_same_v<Type,std::string>&& !std::is_same_v<Type,sahara::time::timestamp>), std::string> json(){
+     std::enable_if_t<(!std::is_same_v<Type,sahara::string>&& !std::is_same_v<Type,sahara::time::timestamp>), sahara::string> json(){
       if(is_null()) return "null";
-      else return std::format("{}",std::get<BaseType>(*this));
+        return sahara::string::static_format(("{}", std::get<BaseType>(*this)));
     }
 
 

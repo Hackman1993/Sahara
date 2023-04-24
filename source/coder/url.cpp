@@ -3,9 +3,10 @@
 //
 
 #include "coder/url.h"
+#include "string/string.h"
 #include <sstream>
 namespace sahara::coder {
-  std::string url_encode(const std::string &str) {
+  sahara::string url_encode(const sahara::string &str) {
     std::stringstream ss;
     for (char ch: str) {
       if (std::isalnum(ch) || ch == '-' || ch == '_' || ch == '.' || ch == '~') {
@@ -17,12 +18,12 @@ namespace sahara::coder {
     return ss.str();
   }
 
-  std::string url_decode(const std::string& str){
+    sahara::string& url_decode(const sahara::string& str){
     std::stringstream ss;
     for (std::size_t i = 0; i < str.size(); ++i) {
       if (str[i] == '%') {
         if (i + 2 < str.size() && std::isxdigit(str[i + 1]) && std::isxdigit(str[i + 2])) {
-          std::string hex = str.substr(i + 1, 2);
+            sahara::string hex = str.substr(i + 1, 2);
           ss << static_cast<char>(std::stoul(hex, nullptr, 16));
           i += 2;
         } else {

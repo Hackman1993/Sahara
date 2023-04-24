@@ -3,7 +3,7 @@
 
 #include <codecvt>
 #include <boost/locale.hpp>
-
+#include <boost/algorithm/string.hpp>
 namespace sahara {
 
     string::string(const std::string &other) : string_(boost::locale::conv::to_utf<wchar_t>(other, "GB2312")) {}
@@ -24,15 +24,15 @@ namespace sahara {
     }
 
     bool string::operator==(const string &other) const {
-        return compare(other);
+        return equals(other);
     }
 
     bool string::operator==(string &&other) const {
-        return compare(other);
+        return equals(other);
     }
 
-    bool string::compare(const string &other) const {
-        return string_ == other.string_;
+    bool string::iequals(const string &other) const {
+        return boost::algorithm::iequals(string_, other.string_);
     }
 
     string::string(std::wstring_view other) : string_(other) {}
@@ -59,6 +59,43 @@ namespace sahara {
         if (pos1 != wstr.length())
             result.emplace_back(wstr.substr(pos1));
         return result;
+    }
+
+    string::operator std::wstring &() {
+        return string_;
+    }
+
+    string::operator std::string () {
+        return boost::locale::conv::utf_to_utf<char>(string_);
+    }
+
+    string::operator std::wstring_view() {
+        return string_;
+    }
+
+    std::string string::to_std() const {
+        return boost::locale::conv::utf_to_utf<char>(string_);
+    }
+
+    std::wstring &string::to_wstd() {
+        return string_;
+    }
+
+    string operator+(const char *lhs, const string &rhs) {
+        return boost::locale::conv::to_utf<wchar_t>(lhs, "GB2312") + rhs.string_;
+    }
+
+    bool string::start_with(const string &other) const {
+        return boost::algorithm::starts_with(string_, other.string_);
+    }
+
+    bool string::istart_with(const string &other) const {
+        return boost::algorithm::istarts_with(string_, other.string_);
+
+    }
+
+    bool string::equals(const string &other) const {
+        return string_ == other;
     }
 
 
