@@ -31,7 +31,7 @@ namespace sahara::time {
       sahara::string to_string(const sahara::string& format = "%Y-%m-%d %H:%M:%S") const;
 
   protected:
-    static std::chrono::system_clock::time_point parse_time_(const std::string& time_str, const std::string& format = "%Y-%m-%d %H:%M:%S");
+    static std::chrono::system_clock::time_point parse_time_(const sahara::string& time_str, const sahara::string& format = "%Y-%m-%d %H:%M:%S");
     std::chrono::system_clock::time_point timepoint_;
   };
 } // sahara::time

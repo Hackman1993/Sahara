@@ -4,67 +4,102 @@
 
 #ifndef LIBSAHARA_STRING_H
 #define LIBSAHARA_STRING_H
+
 #include <string>
 #include <fmt/format.h>
 #include <fmt/xchar.h>
 
 #include <vector>
 
-namespace sahara{
-  class string{
+namespace sahara {
+  class string {
   public:
     string() = default;
-    string(const std::string& other) ;
-    string(const std::wstring& other) ;
-    string(const char* other) ;
-    string(const wchar_t* other) ;
-    string(const string& other);
-    string(string&& other) noexcept;
-    string(std::wstring_view other);
+    string(const char *other);
+    string(const string &other);
     string(std::string_view other);
-    string& operator=(const string& other);
-    string& operator=(std::string other);
+    string(string &&other) noexcept;
+    string(const std::string &other);
 
-    bool equals(const string& other) const;
-      bool iequals(const string& other) const;
-    bool operator==(const string& other) const;
-    bool operator==(string&& other) const;
+    operator std::string &();
+    operator std::string_view();
+    string &operator=(const string &other);
+    string &operator=(const std::string& other);
+    bool operator==(string &&other) const;
+    string operator+(const char *other) const;
+    bool operator==(const string &other) const;
 
-    friend string operator+(const char* lhs, const string& rhs);
+    friend string operator+(const char *lhs, const string &rhs);
+
+
+    static string make_from(std::uint64_t value);
+    bool empty() const;
+    bool equals(const string &other) const;
+    bool iequals(const string &other) const;
+    string substr(std::size_t pos = 0, std::size_t len = std::string::npos) const;
 
     template<typename... Args>
-    string& format(std::wstring_view format, Args&&... args) {
-      string_ = fmt::vformat(format, fmt::make_wformat_args(args...));
-      return *this;
-    }
-    template<typename... Args>
-    string& format(std::string_view format, Args&&... args) {
+    string &format(std::string_view format, Args &&... args) {
       operator=(fmt::vformat(format, fmt::make_format_args(args...)));
       return *this;
     }
+
     template<typename... Args>
-    static string static_format(string fmt, Args&&... args) {
+    static string static_format(string fmt, Args &&... args) {
       return string().format(fmt.to_std(), args...);
     }
-    bool start_with(const string& other) const;
-    bool istart_with(const string& other) const;
-    std::vector<string> split(const string& delimeter);
-    operator std::wstring& ();
-    operator std::string ();
-    operator std::wstring_view ();
+
+    std::size_t size() const noexcept;
+
+    bool contains(const string &other) const;
+
+    bool icontains(const string &other) const;
+
+    bool start_with(const string &other) const;
+
+    bool istart_with(const string &other) const;
+
+    bool ends_with(const string &other) const;
+
+    bool iends_with(const string &other) const;
+
+    std::size_t find_first(const string &other) const;
+
+    std::size_t ifind_first(const string &other) const;
+
+    std::vector<string> split(const string &delimeter, bool token_compress = true) const;
+
+
+
     std::string to_std() const;
-    std::wstring& to_wstd();
+    void url_encode();
+    string url_encode_copy() const;
+    static string url_encode(string str);
+
+    void url_decode();
+    string url_decode_copy() const;
+    static string url_decode(string str);
+
   protected:
-    std::wstring string_;
+    std::string string_;
   };
 }
-template <>
+template<>
 struct fmt::formatter<sahara::string> {
-    constexpr auto parse(format_parse_context& ctx) { return ctx.begin(); }
+  constexpr auto parse(format_parse_context &ctx) { return ctx.begin(); }
 
-    template <typename FormatContext>
-    auto format(const sahara::string& p, FormatContext& ctx) {
-        return fmt::format_to(ctx.out(), "{}", p.to_std());
-    }
+  template<typename FormatContext>
+  auto format(const sahara::string &p, FormatContext &ctx) {
+    return fmt::format_to(ctx.out(), "{}", p.to_std());
+  }
 };
+
+namespace std {
+  template<>
+  struct hash<sahara::string> {
+    std::size_t operator()(const sahara::string &str) const noexcept {
+      return std::hash<std::string>()(str.to_std());
+    }
+  };
+}
 #endif //LIBSAHARA_STRING_H

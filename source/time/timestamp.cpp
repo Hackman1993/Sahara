@@ -60,9 +60,9 @@ namespace sahara::time {
   }
 
   std::chrono::system_clock::time_point timestamp::parse_time_(const sahara::string &time_str, const sahara::string &format) {
-    std::istringstream ss(time_str);
+    std::istringstream ss(time_str.to_std());
     std::tm tm_time{};
-    ss >> std::get_time(&tm_time, format.c_str());
+    ss >> std::get_time(&tm_time, format.to_std().c_str());
     if(ss.fail()){
       throw exception::conversion_exception("Failed to parse time string.");
     }

@@ -10,10 +10,16 @@ namespace sahara::time {
   class time_duration {
   public:
     explicit time_duration(const std::chrono::system_clock::duration& duration): duration_(duration){}
+    time_duration(const std::chrono::seconds & duration): duration_(duration){}
+    std::size_t to_ms() const;
+
+
   protected:
     std::chrono::system_clock::duration duration_;
     friend timestamp;
   };
+
+
 } // sahara::time
 
 #endif //LIBSAHARA_TIME_DURATION_H

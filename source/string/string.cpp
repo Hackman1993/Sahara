@@ -1,102 +1,95 @@
 
 #include "string/string.h"
-
+#include <iostream>
+#include <iomanip>
 #include <codecvt>
-#include <boost/locale.hpp>
+#include <boost/url/encode.hpp>
 #include <boost/algorithm/string.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/locale/encoding.hpp>
+#include <boost/url/grammar.hpp>
+#include <boost/algorithm/hex.hpp>
 namespace sahara {
-
-    string::string(const std::string &other) : string_(boost::locale::conv::to_utf<wchar_t>(other, "GB2312")) {}
-
-    string::string(const std::wstring &other) : string_(other) {}
-
-    string::string(const char *other) : string_(boost::locale::conv::to_utf<wchar_t>(other, "GB2312")) {}
-
-    string::string(const wchar_t *other) : string_(other) {}
-
-    string::string(const string &other) : string_(other.string_) {}
-
-    string::string(string &&other) noexcept: string_(std::move(other.string_)) {}
-
-    string &string::operator=(const string &other) {
-        this->string_ = other.string_;
-        return *this;
-    }
-
-    bool string::operator==(const string &other) const {
-        return equals(other);
-    }
-
-    bool string::operator==(string &&other) const {
-        return equals(other);
-    }
-
-    bool string::iequals(const string &other) const {
-        return boost::algorithm::iequals(string_, other.string_);
-    }
-
-    string::string(std::wstring_view other) : string_(other) {}
-
-    string::string(std::string_view other) : string_(boost::locale::conv::to_utf<wchar_t>(other.data(), "GB2312")) {}
-
-    string &string::operator=(std::string other) {
-        operator=(string(other));
-        return *this;
-    }
-
-    std::vector<string> string::split(const string &delimeter) {
-        std::vector<string> result;
-        std::wstring wstr = string_;
-        std::wstring wdelimeter = delimeter.string_;
-        std::wstring::size_type pos1, pos2;
-        pos2 = wstr.find(wdelimeter);
-        pos1 = 0;
-        while (std::wstring::npos != pos2) {
-            result.emplace_back(wstr.substr(pos1, pos2 - pos1));
-            pos1 = pos2 + wdelimeter.size();
-            pos2 = wstr.find(wdelimeter, pos1);
-        }
-        if (pos1 != wstr.length())
-            result.emplace_back(wstr.substr(pos1));
-        return result;
-    }
-
-    string::operator std::wstring &() {
-        return string_;
-    }
-
-    string::operator std::string () {
-        return boost::locale::conv::utf_to_utf<char>(string_);
-    }
-
-    string::operator std::wstring_view() {
-        return string_;
+    std::vector<string> string::split(const string &delimeter, bool compress_token) const{
+        std::vector<std::string> result;
+        boost::split(result, string_, boost::is_any_of(delimeter.string_),compress_token? boost::token_compress_on:boost::token_compress_off);
+        std::vector<sahara::string> result1;
+        std::copy(result.begin(), result.end(), std::back_inserter(result1));
+        return result1;
     }
 
     std::string string::to_std() const {
         return boost::locale::conv::utf_to_utf<char>(string_);
     }
 
-    std::wstring &string::to_wstd() {
-        return string_;
-    }
-
-    string operator+(const char *lhs, const string &rhs) {
-        return boost::locale::conv::to_utf<wchar_t>(lhs, "GB2312") + rhs.string_;
-    }
-
-    bool string::start_with(const string &other) const {
-        return boost::algorithm::starts_with(string_, other.string_);
-    }
-
-    bool string::istart_with(const string &other) const {
-        return boost::algorithm::istarts_with(string_, other.string_);
-
-    }
-
     bool string::equals(const string &other) const {
-        return string_ == other;
+        return string_ == other.string_;
     }
+    bool string::iequals(const string &other) const {
+      return boost::algorithm::iequals(string_, other.string_);
+    }
+
+    bool string::empty() const {
+        return string_.empty();
+    }
+
+    std::size_t string::size() const noexcept {
+        return string_.length();
+    }
+    string string::substr(std::size_t pos, std::size_t len) const {
+        return string_.substr(pos, len);
+    }
+
+  string string::make_from(std::uint64_t value) {
+    return boost::lexical_cast<std::string>(value);
+  }
+
+  string string::url_encode_copy() const {
+      return url_encode(string_);
+  }
+
+  void string::url_encode() {
+    string_ = url_encode(string_);
+  }
+
+  string string::url_encode(string str) {
+    std::ostringstream encoded;
+    encoded.fill('0');
+    encoded << std::hex << std::uppercase;
+
+    for (char c : str.string_) {
+      if (std::isalnum(c) || c == '-' || c == '_' || c == '.' || c == '~') {
+        encoded << c;
+      } else {
+        encoded << '%' << std::setw(2) << static_cast<unsigned int>(static_cast<unsigned char>(c));
+      }
+    }
+    return encoded.str();
+  }
+
+
+  void string::url_decode() {
+      string_ = url_decode(string_);
+  }
+
+  string string::url_decode_copy() const {
+    return url_decode(string_);
+  }
+
+  string string::url_decode(string str) {
+    std::ostringstream ostream;
+    for(auto i = 0;i < str.string_.length(); ++i){
+      if(i+2 >= str.string_.length())
+        ostream << str.string_[i];
+
+      else if(str.string_[i] == '%'){
+        std::string test = str.substr(i+1, 2);
+        ostream << boost::algorithm::unhex(test);
+        i+= 2;
+      }
+    }
+    return ostream.str();
+  }
 
 
 }
