@@ -10,11 +10,14 @@
 #include <boost/url/grammar.hpp>
 #include <boost/algorithm/hex.hpp>
 namespace sahara {
-    std::vector<string> string::split(const string &delimeter, bool compress_token) const{
+    std::vector<string> string::split(const string &delimeter, bool compress_token, bool drop_empty) const{
         std::vector<std::string> result;
         boost::split(result, string_, boost::is_any_of(delimeter.string_),compress_token? boost::token_compress_on:boost::token_compress_off);
         std::vector<sahara::string> result1;
-        std::copy(result.begin(), result.end(), std::back_inserter(result1));
+        for(auto& str: result){
+          if(drop_empty && str.empty()) continue;
+          result1.emplace_back(str);
+        }
         return result1;
     }
 
@@ -86,6 +89,8 @@ namespace sahara {
         std::string test = str.substr(i+1, 2);
         ostream << boost::algorithm::unhex(test);
         i+= 2;
+      }else{
+          ostream << str.string_[i];
       }
     }
     return ostream.str();

@@ -59,7 +59,11 @@ namespace sahara::time {
     return ss.str();
   }
 
+#include <stdio.h>
+#include <time.h>
   std::chrono::system_clock::time_point timestamp::parse_time_(const sahara::string &time_str, const sahara::string &format) {
+      struct timespec ts;
+      timespec_get(&ts, TIME_UTC);
     std::istringstream ss(time_str.to_std());
     std::tm tm_time{};
     ss >> std::get_time(&tm_time, format.to_std().c_str());

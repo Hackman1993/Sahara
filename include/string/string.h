@@ -67,7 +67,7 @@ namespace sahara {
 
     std::size_t ifind_first(const string &other) const;
 
-    std::vector<string> split(const string &delimeter, bool token_compress = true) const;
+    std::vector<string> split(const string &delimeter, bool token_compress = true, bool drop_empty = true) const;
 
 
 
