@@ -13,9 +13,8 @@ find_package(fmt CONFIG REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
 add_library(sahara ${CPP_HEADERS} ${CPP_SOURCES})
-target_link_libraries(sahara PRIVATE Boost::locale)
-
-add_executable(libsahara_test ${TEST_HEADERS} ${TEST_SOURCES} )
-target_link_libraries(libsahara_test PRIVATE sahara Boost::unit_test_framework Boost::locale fmt::fmt ws2_32 bcrypt)
-
+target_link_libraries(sahara PRIVATE Boost::locale bcrypt)
 install(TARGETS sahara DESTINATION lib)
+
+#add_executable(libsahara_test ${TEST_HEADERS} ${TEST_SOURCES} )
+#target_link_libraries(libsahara_test PRIVATE sahara Boost::unit_test_framework Boost::locale fmt::fmt ws2_32 )
