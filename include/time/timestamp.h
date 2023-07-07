@@ -6,8 +6,8 @@
 #include <string>
 #include <fmt/format.h>
 #include "time_duration.h"
-#include "exception/conversion_exception.h"
-#include "string/string.h"
+#include "../exception/conversion_exception.h"
+#include "../string/string.h"
 namespace sahara::time {
   class timestamp {
   public:

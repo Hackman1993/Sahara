@@ -1,8 +1,8 @@
 
 #include <fstream>
-#include <string/string.h>
-#include <boost/test/unit_test.hpp>
 #include <boost/asio.hpp>
+#include <boost/test/unit_test.hpp>
+#include "../include/string/string.h"
 
 BOOST_AUTO_TEST_SUITE(String)
 

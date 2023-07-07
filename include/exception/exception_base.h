@@ -5,7 +5,7 @@
 #ifndef LIBSAHARA_EXCEPTION_BASE_H
 #define LIBSAHARA_EXCEPTION_BASE_H
 #include <string>
-#include "string/string.h"
+#include "../string/string.h"
 
 namespace sahara::exception {
   class exception_base :public std::exception{
