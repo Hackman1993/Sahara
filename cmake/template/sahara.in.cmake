@@ -5,6 +5,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
 find_dependency(Boost REQUIRED COMPONENTS locale)
 find_dependency(fmt REQUIRED)
-message(STATUS "BOOST:" "@Boost_FOUND@")
+
+include(${CMAKE_CURRENT_LIST_DIR}/sahara-config.cmake)
 if(@Boost_FOUND@)
   include_directories(${Boost_INCLUDE_DIRS})
