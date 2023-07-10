@@ -16,15 +16,15 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} PRIVATE $<${WIN32}: bcrypt> fmt::fmt-header-only)
 
 configure_package_config_file(cmake/template/sahara.in.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/sahara-config.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/sahara-config.cmake
         INSTALL_DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME})
 write_basic_package_version_file(
         ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
         VERSION ${SAHARA_VERSION}
-        COMPATIBILITY SameMajorVersion)
+        COMPATIBILITY ExactVersion)
 
 install(FILES
-        ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${PROJECT_NAME}-config.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake
         ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/sahara)
 
