@@ -23,10 +23,10 @@ write_basic_package_version_file(
         VERSION ${SAHARA_VERSION}
         COMPATIBILITY ExactVersion)
 
-#install(FILES
-#        ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake
-#        ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
-#        DESTINATION share/sahara)
+install(FILES
+        ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
+        DESTINATION share/sahara)
 install(TARGETS ${PROJECT_NAME}
         EXPORT sahara-targets
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
