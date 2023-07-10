@@ -29,5 +29,5 @@ configure_package_config_file(cmake/template/sahara.in.cmake ${CMAKE_CURRENT_BIN
 install(TARGETS ${PROJECT_NAME}
         EXPORT sahara-targets)
 
-install(DIRECTORY include/ DESTINATION include/sahara FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp")
-install(EXPORT sahara-targets NAMESPACE sahara:: DESTINATION lib/cmake/${PROJECT_NAME})
+install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp")
+install(EXPORT sahara-targets NAMESPACE sahara:: DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME})
