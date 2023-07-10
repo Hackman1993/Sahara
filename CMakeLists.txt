@@ -14,6 +14,11 @@ find_package(fmt CONFIG REQUIRED)
 add_library(${PROJECT_NAME} SHARED ${CPP_HEADERS} ${CPP_SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} PRIVATE $<${WIN32}: bcrypt>)
-install(TARGETS sahara DESTINATION lib EXPORT sahara-config)
+
+install(TARGETS ${PROJECT_NAME}
+        EXPORT sahara-targets
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        LIBRARY DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(DIRECTORY include/ DESTINATION include/sahara FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp")
-install(EXPORT sahara-config NAMESPACE sahara:: DESTINATION lib/cmake/sahara)
+install(EXPORT sahara-targets NAMESPACE sahara:: DESTINATION lib/cmake/sahara)
