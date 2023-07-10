@@ -11,7 +11,7 @@ find_package(fmt REQUIRED)
 
 set(CMAKE_CXX_STANDARD 20)
 
-configure_package_config_file(cmake/template/sahara.in.cmake sahara-config.cmake INSTALL_DESTINATION lib/cmake/${PROJECT_NAME})
+configure_package_config_file(cmake/template/sahara.in.cmake ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/sahara-config.cmake INSTALL_DESTINATION lib/cmake/${PROJECT_NAME})
 add_library(${PROJECT_NAME} SHARED ${CPP_HEADERS} ${CPP_SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} PRIVATE $<${WIN32}: bcrypt> fmt::fmt-header-only)
