@@ -24,7 +24,7 @@ write_basic_package_version_file(
         COMPATIBILITY SameMajorVersion)
 
 install(FILES
-        ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${PROJECT_NAME}-config.cmake
         ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/sahara)
 
