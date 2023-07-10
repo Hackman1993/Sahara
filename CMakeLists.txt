@@ -17,10 +17,10 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} PRIVATE $<${WIN32}: bcrypt> fmt::fmt-header-only)
 
 install(TARGETS ${PROJECT_NAME}
-        FILES "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/sahara-config.cmake"
         EXPORT sahara
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/sahara-config.cmake" DESTINATION " ${CMAKE_INSTALL_LIBDIR}/cmake/sahara")
 install(DIRECTORY include/ DESTINATION include/sahara FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp")
 install(EXPORT sahara NAMESPACE sahara:: DESTINATION lib/cmake/${PROJECT_NAME})
