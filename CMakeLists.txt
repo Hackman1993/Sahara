@@ -16,10 +16,10 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} PRIVATE $<${WIN32}: bcrypt> fmt::fmt-header-only)
 
 configure_package_config_file(cmake/template/sahara.in.cmake
-        share/sahara-config.cmake
-        INSTALL_DESTINATION share)
+        sahara-config.cmake
+        INSTALL_DESTINATION ./)
 write_basic_package_version_file(
-        share/${PROJECT_NAME}-config-version.cmake
+        ${PROJECT_NAME}-config-version.cmake
         VERSION ${SAHARA_VERSION}
         COMPATIBILITY ExactVersion)
 
