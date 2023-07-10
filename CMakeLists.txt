@@ -35,4 +35,4 @@ install(TARGETS ${PROJECT_NAME}
         )
 
 install(DIRECTORY include/ DESTINATION include FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp")
-install(EXPORT sahara-targets NAMESPACE sahara:: DESTINATION ${PROJECT_NAME})
+install(EXPORT sahara-targets NAMESPACE sahara:: DESTINATION share/${PROJECT_NAME})
