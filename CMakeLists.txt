@@ -13,10 +13,11 @@ find_package(fmt CONFIG REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
 add_library(sahara STATIC ${CPP_HEADERS} ${CPP_SOURCES})
+add_library(bbc::dda ALIAS sahara)
 target_link_libraries(sahara PRIVATE Boost::locale bcrypt)
 install(TARGETS sahara DESTINATION lib EXPORT sahara-targets)
 install(DIRECTORY include/ DESTINATION include/sahara FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp")
-install(EXPORT sahara-targets NAMESPACE sahara:: DESTINATION lib EXPORT HELLO)
+install(EXPORT sahara-targets NAMESPACE sahara:: DESTINATION lib/cmake/sahara)
 message(STATUS ${HELLO} ${sahara-targets})
 
 #add_executable(libsahara_test ${TEST_HEADERS} ${TEST_SOURCES} )
