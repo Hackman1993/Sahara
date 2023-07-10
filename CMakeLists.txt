@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.21)
 project(sahara)
-
+set(SAHARA_VERSION 1.0.1)
 include(CMakePackageConfigHelpers)
 
 file(GLOB_RECURSE CPP_HEADERS include/*.h include/*.hpp)
@@ -14,7 +14,7 @@ set(CMAKE_CXX_STANDARD 20)
 configure_package_config_file(cmake/template/sahara.in.cmake ${CMAKE_CURRENT_BINARY_DIR}/sahara-config.cmake INSTALL_DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME})
 write_basic_package_version_file(
         ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
-        VERSION ${sahara_VERSION}
+        VERSION ${SAHARA_VERSION}
         COMPATIBILITY SameMajorVersion)
 add_library(${PROJECT_NAME} SHARED ${CPP_HEADERS} ${CPP_SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
