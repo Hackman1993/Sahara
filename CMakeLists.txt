@@ -36,4 +36,4 @@ install(TARGETS ${PROJECT_NAME}
         )
 
 install(DIRECTORY include/ DESTINATION include FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp")
-install(EXPORT sahara-targets NAMESPACE sahara:: DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME})
+install(EXPORT sahara-targets NAMESPACE sahara:: DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
