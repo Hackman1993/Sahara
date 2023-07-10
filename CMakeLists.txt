@@ -15,14 +15,18 @@ add_library(${PROJECT_NAME} STATIC ${CPP_HEADERS} ${CPP_SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} PRIVATE $<${WIN32}: bcrypt> fmt::fmt-header-only)
 
-configure_package_config_file(cmake/template/sahara.in.cmake ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/sahara-config.cmake
-        INSTALL_DESTINATION ${CMAKE_INSTALL_DATADIR}/cmake/sahara/sahara-config.cmake)
-write_basic_package_version_file(${CMAKE_INSTALL_DATADIR}/cmake/sahara/${PROJECT_NAME}-config-version.cmake
-        VERSION ${SAHARA_VERSION} COMPATIBILITY ExactVersion)
+configure_package_config_file(cmake/template/sahara.in.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/sahara-config.cmake
+        INSTALL_DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME})
+write_basic_package_version_file(
+        ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
+        VERSION ${SAHARA_VERSION}
+        COMPATIBILITY SameMajorVersion)
 
-#install(FILES
-#        ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
-#        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/sahara)
+install(FILES
+        ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${PROJECT_NAME}-config.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/sahara)
 
 install(TARGETS ${PROJECT_NAME}
         EXPORT sahara-targets
@@ -30,5 +34,6 @@ install(TARGETS ${PROJECT_NAME}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         )
+
 install(DIRECTORY include/ DESTINATION include FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp")
 install(EXPORT sahara-targets NAMESPACE sahara:: DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
