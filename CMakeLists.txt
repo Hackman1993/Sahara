@@ -24,7 +24,7 @@ write_basic_package_version_file(
 install(FILES
         ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake
         ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
-        DESTINATION " ${CMAKE_INSTALL_DATADIR}/sahara")
+        DESTINATION "share/sahara")
 
 install(TARGETS ${PROJECT_NAME}
         EXPORT sahara-targets
