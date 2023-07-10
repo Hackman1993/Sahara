@@ -1,5 +1,6 @@
-cmake_minimum_required(VERSION 3.21)
 project(sahara)
+include(CMakePackageConfigHelpers)
+cmake_minimum_required(VERSION 3.21)
 
 file(GLOB_RECURSE CPP_HEADERS include/*.h include/*.hpp)
 file(GLOB_RECURSE CPP_SOURCES source/*.cpp source/*.cc)
