@@ -8,7 +8,7 @@ file(GLOB_RECURSE TEST_SOURCES test/*.cpp test/*.cc)
 
 set(CMAKE_CXX_STANDARD 20)
 
-find_package(Boost REQUIRED COMPONENTS locale )
+find_package(Boost REQUIRED COMPONENTS )
 find_package(fmt CONFIG REQUIRED)
 
 add_library(${PROJECT_NAME} SHARED ${CPP_HEADERS} ${CPP_SOURCES})
