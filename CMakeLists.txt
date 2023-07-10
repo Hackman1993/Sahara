@@ -17,7 +17,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE $<${WIN32}: bcrypt> fmt::fmt-heade
 
 configure_package_config_file(cmake/template/sahara.in.cmake
         ${CMAKE_CURRENT_BINARY_DIR}/sahara-config.cmake
-        INSTALL_DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME})
+        INSTALL_DESTINATION ${PROJECT_NAME})
 write_basic_package_version_file(
         ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
         VERSION ${SAHARA_VERSION}
@@ -26,8 +26,7 @@ write_basic_package_version_file(
 install(FILES
         ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake
         ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/sahara)
-
+        DESTINATION cmake/sahara)
 install(TARGETS ${PROJECT_NAME}
         EXPORT sahara-targets
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
@@ -36,4 +35,4 @@ install(TARGETS ${PROJECT_NAME}
         )
 
 install(DIRECTORY include/ DESTINATION include FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp")
-install(EXPORT sahara-targets NAMESPACE sahara:: DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
+install(EXPORT sahara-targets NAMESPACE sahara:: DESTINATION cmake/${PROJECT_NAME})
