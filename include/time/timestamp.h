@@ -34,8 +34,6 @@ namespace sahara::time {
         timestamp operator-=(const time_duration &duration);
 
         timestamp operator-=(const std::chrono::system_clock::duration &duration);
-
-        operator std::string() const;
         sahara::string to_string(const sahara::string &format = "%Y-%m-%d %H:%M:%S") const;
 
     protected:
