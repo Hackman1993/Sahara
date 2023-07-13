@@ -72,4 +72,9 @@ namespace sahara::time {
     }
     return std::chrono::system_clock::from_time_t(std::mktime(&tm_time));
   }
+
+    timestamp::operator std::string() const {
+        return to_string().to_std();
+    }
+
 } // sahara::time
