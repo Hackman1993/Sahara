@@ -45,6 +45,9 @@ namespace sahara::time {
     };
 } // sahara::time
 
+namespace std {
+    string to_string(const sahara::time::timestamp &timestamp);
+}
 template<>
 struct fmt::formatter<sahara::time::timestamp> {
     constexpr auto parse(format_parse_context &ctx) { return ctx.begin(); }

@@ -58,7 +58,6 @@ namespace sahara::time {
     ss << std::put_time(std::localtime(&time), format.to_std().c_str());
     return ss.str();
   }
-
 #include <stdio.h>
 #include <time.h>
   std::chrono::system_clock::time_point timestamp::parse_time_(const sahara::string &time_str, const sahara::string &format) {
@@ -76,5 +75,10 @@ namespace sahara::time {
     timestamp::operator std::string() const {
         return to_string().to_std();
     }
-
 } // sahara::time
+
+namespace std{
+    string to_string(const sahara::time::timestamp &timestamp){
+    return timestamp.to_string().to_std();
+  }
+}
