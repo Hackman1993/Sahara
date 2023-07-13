@@ -24,12 +24,15 @@ namespace sahara {
     operator std::string &();
     operator std::string_view();
     string &operator=(const string &other);
+    string &operator=(const char* other);
     string &operator=(const std::string& other);
     bool operator==(string &&other) const;
     string operator+(const char *other) const;
     bool operator==(const string &other) const;
 
-    friend string operator+(const char *lhs, const string &rhs);
+    operator const char *() const;
+
+      friend string operator+(const char *lhs, const string &rhs);
 
 
     static string make_from(std::uint64_t value);

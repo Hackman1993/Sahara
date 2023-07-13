@@ -52,7 +52,7 @@ namespace sahara {
   }
 
   void string::url_encode() {
-    string_ = url_encode(string_);
+    url_encode(string_).string_.swap(string_);
   }
 
   string string::url_encode(string str) {
@@ -72,7 +72,7 @@ namespace sahara {
 
 
   void string::url_decode() {
-      string_ = url_decode(string_);
+      url_decode(string_).string_.swap(string_);
   }
 
   string string::url_decode_copy() const {
