@@ -38,7 +38,7 @@ namespace sahara::types{
 
     }
 
-    virtual bool is_null(){
+    virtual bool is_null() const{
       return std::variant<BaseType, std::nullptr_t>::index() == 1;
     }
     operator BaseType(){
