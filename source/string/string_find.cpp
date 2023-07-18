@@ -33,5 +33,9 @@ namespace sahara{
     return boost::ifind_first(string_, other.string_).begin() - string_.begin();
   }
 
+    std::string &string::std_ref() {
+        return string_;
+    }
+
 
 }

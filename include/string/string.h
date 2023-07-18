@@ -72,7 +72,7 @@ namespace sahara {
 
     std::vector<string> split(const string &delimeter, bool token_compress = true, bool drop_empty = true) const;
 
-
+    std::string& std_ref();
 
     std::string to_std() const;
     void url_encode();
