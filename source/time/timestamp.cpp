@@ -54,11 +54,8 @@ namespace sahara::time {
         return *this;
     }
 
-    sahara::string timestamp::to_string(sahara::string format) {
-        date::make_zoned(date::current_zone(), timepoint_);
+    sahara::string timestamp::to_string(sahara::string format, const date::time_zone *zone) {
         std::string result = date::format(format.std_ref(), timepoint_);
-//    std::stringstream ss;
-//    ss << std::put_time(std::localtime(&time), format.to_std().c_str());
         return result;
     }
 
@@ -117,9 +114,7 @@ namespace sahara::time {
         return std::chrono::duration_cast<std::chrono::milliseconds>(timepoint_.time_since_epoch()).count();
     }
 
-    timestamp::timestamp(const date::time_zone *zone) {
-        date::make_zoned(zone, timepoint_);
-    }} // sahara::time
+    } // sahara::time
 
 
 
