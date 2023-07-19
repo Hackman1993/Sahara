@@ -8,12 +8,13 @@ file(GLOB_RECURSE CPP_SOURCES source/*.cpp source/*.cc)
 
 find_package(Boost REQUIRED locale)
 find_package(fmt REQUIRED)
+find_package(date REQUIRED)
 
 set(CMAKE_CXX_STANDARD 20)
 
 add_library(${PROJECT_NAME} STATIC ${CPP_HEADERS} ${CPP_SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
-target_link_libraries(${PROJECT_NAME} PRIVATE $<${WIN32}: bcrypt> fmt::fmt-header-only)
+target_link_libraries(${PROJECT_NAME} PRIVATE $<${WIN32}: bcrypt> fmt::fmt-header-only date::date date::date-tz)
 
 configure_package_config_file(cmake/template/sahara.in.cmake
         sahara-config.cmake

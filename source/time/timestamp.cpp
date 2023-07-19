@@ -6,7 +6,7 @@
 #include "../../include/string/string.h"
 #include <iomanip>
 #include <sstream>
-
+#include <date/date.h>
 namespace sahara::time {
   timestamp timestamp::from_string(const sahara::string& time, const sahara::string& format){
     return timestamp{parse_time_(time, format)};
@@ -54,9 +54,10 @@ namespace sahara::time {
 
     sahara::string timestamp::to_string(const sahara::string &format) const  {
     std::time_t time = std::chrono::system_clock::to_time_t(timepoint_);
-    std::stringstream ss;
-    ss << std::put_time(std::localtime(&time), format.to_std().c_str());
-    return ss.str();
+    std::string result = date::format("%Y-%m-%d %H:%M:%S.%T", timepoint_);
+//    std::stringstream ss;
+//    ss << std::put_time(std::localtime(&time), format.to_std().c_str());
+    return result;
   }
 #include <stdio.h>
 #include <time.h>
