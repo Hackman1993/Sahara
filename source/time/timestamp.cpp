@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <sstream>
 #include <date/date.h>
+#include <date/tz.h>
 
 namespace sahara::time {
     timestamp timestamp::from_string(const sahara::string &time, const sahara::string &format) {
@@ -54,7 +55,7 @@ namespace sahara::time {
     }
 
     sahara::string timestamp::to_string(sahara::string format) {
-        std::time_t time = std::chrono::system_clock::to_time_t(timepoint_);
+        date::make_zoned(date::current_zone(), timepoint_);
         std::string result = date::format(format.std_ref(), timepoint_);
 //    std::stringstream ss;
 //    ss << std::put_time(std::localtime(&time), format.to_std().c_str());
@@ -114,6 +115,10 @@ namespace sahara::time {
 
     unsigned long timestamp::microsecond() {
         return std::chrono::duration_cast<std::chrono::milliseconds>(timepoint_.time_since_epoch()).count();
+    }
+
+    timestamp::timestamp(const date::time_zone *zone) {
+        date::make_zoned(zone, timepoint_);
     }} // sahara::time
 
 

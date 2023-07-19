@@ -7,13 +7,12 @@
 #include "time_duration.h"
 #include "../exception/conversion_exception.h"
 #include "../string/string.h"
-
+#include <date/date.h>
+#include <date/tz.h>
 namespace sahara::time {
     class timestamp {
     public:
-        timestamp() : timepoint_(std::chrono::system_clock::now()) {}
-
-        timestamp(std::chrono::system_clock::time_point timepoint) : timepoint_(timepoint) {}
+        timestamp(const date::time_zone* zone = date::current_zone());
 
         static timestamp from_string(const sahara::string &time, const sahara::string &format = "%F %T");
 
