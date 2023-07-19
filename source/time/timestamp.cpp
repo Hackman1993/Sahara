@@ -71,7 +71,42 @@ namespace sahara::time {
     }
     return std::chrono::system_clock::from_time_t(std::mktime(&tm_time));
   }
-} // sahara::time
+
+    unsigned int timestamp::year() {
+        auto time = std::chrono::system_clock::to_time_t(timepoint_);
+        tm* tm = gmtime(&time);
+        return tm->tm_year + 1900;
+    }
+
+    unsigned int timestamp::month() {
+        auto time = std::chrono::system_clock::to_time_t(timepoint_);
+        tm* tm = gmtime(&time);
+        return tm->tm_mon + 1;
+    }
+
+    unsigned int timestamp::day() {
+        auto time = std::chrono::system_clock::to_time_t(timepoint_);
+        tm* tm = gmtime(&time);
+        return tm->tm_mday;
+    }
+
+    unsigned int timestamp::hour() {
+        auto time = std::chrono::system_clock::to_time_t(timepoint_);
+        tm* tm = gmtime(&time);
+        return tm->tm_hour;
+    }
+
+    unsigned int timestamp::minute() {
+        auto time = std::chrono::system_clock::to_time_t(timepoint_);
+        tm* tm = gmtime(&time);
+        return tm->tm_min;
+    }
+
+    unsigned int timestamp::second() {
+        auto time = std::chrono::system_clock::to_time_t(timepoint_);
+        tm* tm = gmtime(&time);
+        return tm->tm_sec;
+    }} // sahara::time
 
 namespace std{
     string to_string(const sahara::time::timestamp &timestamp){

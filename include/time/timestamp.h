@@ -17,6 +17,13 @@ namespace sahara::time {
 
         static timestamp from_string(const sahara::string &time, const sahara::string &format = "%Y-%m-%d %H:%M:%S");
 
+        unsigned int year();
+        unsigned int month();
+        unsigned int day();
+        unsigned int hour();
+        unsigned int minute();
+        unsigned int second();
+
         time_duration operator-(const timestamp &other) const;
 
         timestamp operator+(const std::chrono::system_clock::duration &duration) const;
