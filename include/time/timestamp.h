@@ -23,6 +23,7 @@ namespace sahara::time {
         unsigned int hour();
         unsigned int minute();
         unsigned int second();
+        unsigned long microsecond();
 
         time_duration operator-(const timestamp &other) const;
 

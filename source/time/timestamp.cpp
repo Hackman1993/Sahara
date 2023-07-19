@@ -106,7 +106,13 @@ namespace sahara::time {
         auto time = std::chrono::system_clock::to_time_t(timepoint_);
         tm* tm = gmtime(&time);
         return tm->tm_sec;
+    }
+
+    unsigned long timestamp::microsecond() {
+        return std::chrono::duration_cast<std::chrono::milliseconds>(timepoint_.time_since_epoch()).count();
     }} // sahara::time
+
+
 
 namespace std{
     string to_string(const sahara::time::timestamp &timestamp){
