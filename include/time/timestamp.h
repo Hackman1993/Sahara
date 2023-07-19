@@ -7,7 +7,7 @@
 #include "time_duration.h"
 #include "../exception/conversion_exception.h"
 #include "../string/string.h"
-#include <date/tz.h>
+#include <chrono>
 namespace sahara::time {
     class timestamp {
     public:
@@ -42,7 +42,7 @@ namespace sahara::time {
         timestamp operator-=(const time_duration &duration);
 
         timestamp operator-=(const std::chrono::system_clock::duration &duration);
-        sahara::string to_string(sahara::string format = "%F %T") ;
+        sahara::string to_string(const sahara::string& format = "%F %T", const std::chrono::time_zone* zone=std::chrono::locate_zone("Asia/Shanghai")) ;
 
     protected:
         static std::chrono::system_clock::time_point parse_time_(const sahara::string &time_str, const sahara::string &format = "%F %T");
@@ -59,7 +59,7 @@ struct fmt::formatter<sahara::time::timestamp> {
     constexpr auto parse(format_parse_context &ctx) { return ctx.begin(); }
 
     template<typename FormatContext>
-    auto format(const sahara::time::timestamp &p, FormatContext &ctx) { return format_to(ctx.out(), "{}", p.to_string()); }
+    auto format(sahara::time::timestamp &p, FormatContext &ctx) { return format_to(ctx.out(), "{}", p.to_string()); }
 };
 
 #endif //LIBSAHARA_TIMESTAMP_H
