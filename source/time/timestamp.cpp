@@ -54,7 +54,7 @@ namespace sahara::time {
         return *this;
     }
 
-    sahara::string timestamp::to_string(sahara::string format, const date::time_zone *zone) {
+    sahara::string timestamp::to_string(sahara::string format) {
         std::string result = date::format(format.std_ref(), timepoint_);
         return result;
     }

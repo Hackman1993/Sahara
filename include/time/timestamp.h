@@ -42,7 +42,7 @@ namespace sahara::time {
         timestamp operator-=(const time_duration &duration);
 
         timestamp operator-=(const std::chrono::system_clock::duration &duration);
-        sahara::string to_string(sahara::string format = "%F %T", const date::time_zone *zone = date::locate_zone("UTC")) ;
+        sahara::string to_string(sahara::string format = "%F %T") ;
 
     protected:
         static std::chrono::system_clock::time_point parse_time_(const sahara::string &time_str, const sahara::string &format = "%F %T");
