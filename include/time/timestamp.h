@@ -15,7 +15,7 @@ namespace sahara::time {
 
         timestamp(std::chrono::system_clock::time_point timepoint) : timepoint_(timepoint) {}
 
-        static timestamp from_string(const sahara::string &time, const sahara::string &format = "%Y-%m-%d %H:%M:%S");
+        static timestamp from_string(const sahara::string &time, const sahara::string &format = "%F %T");
 
         unsigned int year();
         unsigned int month();
@@ -42,17 +42,17 @@ namespace sahara::time {
         timestamp operator-=(const time_duration &duration);
 
         timestamp operator-=(const std::chrono::system_clock::duration &duration);
-        sahara::string to_string(const sahara::string &format = "%Y-%m-%d %H:%M:%S") const;
+        sahara::string to_string(sahara::string format = "%F %T") ;
 
     protected:
-        static std::chrono::system_clock::time_point parse_time_(const sahara::string &time_str, const sahara::string &format = "%Y-%m-%d %H:%M:%S");
+        static std::chrono::system_clock::time_point parse_time_(const sahara::string &time_str, const sahara::string &format = "%F %T");
 
         std::chrono::system_clock::time_point timepoint_;
     };
 } // sahara::time
 
 namespace std {
-    string to_string(const sahara::time::timestamp &timestamp);
+    string to_string(sahara::time::timestamp &timestamp);
 }
 template<>
 struct fmt::formatter<sahara::time::timestamp> {
