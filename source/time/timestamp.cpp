@@ -114,9 +114,7 @@ namespace sahara::time {
         return std::chrono::duration_cast<std::chrono::milliseconds>(timepoint_.time_since_epoch()).count();
     }
 
-    timestamp::timestamp(const date::time_zone *zone) {
-        date::make_zoned(zone, timepoint_);
-    }} // sahara::time
+    } // sahara::time
 
 
 

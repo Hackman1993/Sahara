@@ -11,7 +11,7 @@
 namespace sahara::time {
     class timestamp {
     public:
-        timestamp(const date::time_zone* timezone = date::current_zone());
+        timestamp() : timepoint_(std::chrono::system_clock::now()){};
 
         timestamp(std::chrono::system_clock::time_point timepoint) : timepoint_(timepoint) {}
 
