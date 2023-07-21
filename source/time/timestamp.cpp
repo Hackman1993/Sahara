@@ -54,7 +54,7 @@ namespace sahara::time {
         return *this;
     }
 
-    sahara::string timestamp::to_string(const sahara::string &format, const std::chrono::time_zone* zone) {
+    sahara::string timestamp::to_string(const sahara::string &format, const std::chrono::time_zone *zone) {
         date::zoned_time tm = date::make_zoned(zone, timepoint_);
         std::string result = date::format(format.to_std(), tm);
         return result;
@@ -64,15 +64,18 @@ namespace sahara::time {
 #include <time.h>
 
     std::chrono::system_clock::time_point timestamp::parse_time_(const sahara::string &time_str, const sahara::string &format) {
-        struct timespec ts;
-        timespec_get(&ts, TIME_UTC);
-        std::istringstream ss(time_str.to_std());
-        std::tm tm_time{};
-        ss >> std::get_time(&tm_time, format.to_std().c_str());
-        if (ss.fail()) {
-            throw exception::conversion_exception("Failed to parse time string.");
-        }
-        return std::chrono::system_clock::from_time_t(std::mktime(&tm_time));
+        std::istringstream in(time_str.to_std());
+        std::chrono::system_clock::time_point tp;
+        date::from_stream(in, format.to_std().c_str(), tp);
+        return tp;
+//
+//        std::chrono::system_clock::time_point ret;
+//        std::istringstream ss(time_str.to_std());
+//        ss >> date::parse("", ret);
+//        if (ss.fail()) {
+//            throw exception::conversion_exception("Failed to parse time string.");
+//        }
+//        return std::chrono::system_clock::from_time_t(std::mktime(&tm_time));
     }
 
     unsigned int timestamp::year() {
@@ -115,7 +118,7 @@ namespace sahara::time {
         return std::chrono::duration_cast<std::chrono::milliseconds>(timepoint_.time_since_epoch()).count();
     }
 
-    } // sahara::time
+} // sahara::time
 
 
 
