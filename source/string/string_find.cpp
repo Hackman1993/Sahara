@@ -25,12 +25,18 @@ namespace sahara{
     return boost::algorithm::icontains(string_, other.string_);
   }
 
-  std::size_t string::find_first(const string &other) const {
-    return boost::find_first(string_, other.string_).begin() - string_.begin();
+  std::int64_t string::find_first(const string &other) const {
+      auto range = boost::find_first(string_, other.string_);
+      if(range.empty())
+          return -1;
+    return range.size();
   }
 
-  std::size_t string::ifind_first(const string &other) const {
-    return boost::ifind_first(string_, other.string_).begin() - string_.begin();
+  std::int64_t string::ifind_first(const string &other) const {
+      auto range = boost::ifind_first(string_, other.string_);
+      if(range.empty())
+          return -1;
+      return range.size();
   }
 
     std::string &string::std_ref() {
