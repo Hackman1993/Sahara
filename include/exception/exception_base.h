@@ -11,12 +11,13 @@ namespace sahara::exception {
   class exception_base :public std::exception{
   public:
     exception_base(const sahara::string& str_what) : what_(str_what){};
-    const sahara::string& message() const noexcept {
-      return what_;
-    }
+
+      const char *what() const override {
+          return what_.c_str();
+      }
 
   protected:
-      sahara::string what_;
+      std::string what_;
   };
 } // sahara::exception
 
