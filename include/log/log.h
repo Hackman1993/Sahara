@@ -31,7 +31,7 @@ namespace sahara {
         }
     };
 
-#define LOG_DEBUG(fmt, ...) log::debug(fmt, __VA_ARGS__);
+#define LOG_DEBUG(fmt, ...) sahara::log::debug(fmt, __VA_ARGS__);
 } // sahara
 
 #endif //SAHARA_LOG_H
