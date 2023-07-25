@@ -41,3 +41,7 @@ install(TARGETS ${PROJECT_NAME}
 
 install(DIRECTORY include/ DESTINATION include/sahara FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp")
 install(EXPORT sahara-targets NAMESPACE sahara:: DESTINATION share/${PROJECT_NAME})
+
+add_executable(${PROJECT_NAME}-test ${CPP_TESTS})
+target_include_directories(${PROJECT_NAME}-test PRIVATE include)
+target_link_libraries(${PROJECT_NAME}-test PRIVATE ${PROJECT_NAME} sahara spdlog::spdlog)
