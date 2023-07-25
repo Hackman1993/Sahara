@@ -16,9 +16,15 @@ namespace sahara {
 
     class log {
     public:
-        static void set_level(spdlog::level::level_enum level);
-        static void add_logger(const std::shared_ptr<spdlog::logger>& logger);
-        static void add_sink(const std::shared_ptr<spdlog::sinks::sink>& sink);
+        static void set_level(spdlog::level::level_enum level){
+            spdlog::set_level(level);
+        };
+        static void add_logger(const std::shared_ptr<spdlog::logger>& logger){
+            spdlog::register_logger(logger);
+        };
+        static void add_sink(const std::shared_ptr<spdlog::sinks::sink>& sink){
+            spdlog::default_logger()->sinks().push_back(sink);
+        };
         template<typename... Args>
         static void debug(format_string_t<Args...> fmt, Args &&... args)
         {
