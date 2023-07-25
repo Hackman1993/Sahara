@@ -25,53 +25,26 @@ namespace sahara {
         static void add_sink(const std::shared_ptr<spdlog::sinks::sink>& sink){
             spdlog::default_logger()->sinks().push_back(sink);
         };
-        template<typename... Args>
-        static void debug(format_string_t<Args...> fmt, Args &&... args)
-        {
-            spdlog::log(spdlog::level::debug, fmt, std::forward<Args>(args)...);
-        }
-
-        template<typename T>
-        static void debug(const T &msg)
-        {
-            spdlog::log(spdlog::level::debug, msg);
-        }
 
         template<typename... Args>
-        static void critical(format_string_t<Args...> fmt, Args &&... args)
-        {
-            spdlog::log(spdlog::level::critical, fmt, std::forward<Args>(args)...);
-        }
-
-        template<typename... Args>
-        static void error(format_string_t<Args...> fmt, Args &&... args)
-        {
-            spdlog::log(spdlog::level::err, fmt, std::forward<Args>(args)...);
-        }
-
-        template<typename... Args>
-        static void info(format_string_t<Args...> fmt, Args &&... args)
-        {
-            spdlog::log(spdlog::level::info, fmt, std::forward<Args>(args)...);
-        }
-        template<typename... Args>
-        static void trace(format_string_t<Args...> fmt, Args &&... args)
-        {
-            spdlog::log(spdlog::level::trace, fmt, std::forward<Args>(args)...);
-        }
-        template<typename... Args>
-        static void warn(format_string_t<Args...> fmt, Args &&... args)
-        {
-            spdlog::log(spdlog::level::warn, fmt, std::forward<Args>(args)...);
+        static void write(spdlog::level::level_enum level, format_string_t<Args...> fmt, Args &&... args) {
+            spdlog::log(level, fmt, std::forward<Args>(args)...);
         }
     };
 
-#define LOG_DEBUG(fmt, ...) sahara::log::debug(fmt " [file:{}]" , __VA_ARGS__, __FILE__);
-#define LOG_CRITICAL(fmt, ...) sahara::log::critical(fmt " [file:{}]" , __VA_ARGS__, __FILE__);
-#define LOG_ERROR(fmt, ...) sahara::log::error(fmt " [file:{}]" , __VA_ARGS__, __FILE__);
-#define LOG_INFO(fmt, ...) sahara::log::info(fmt " [file:{}]" , __VA_ARGS__, __FILE__);
-#define LOG_TRACE(fmt, ...) sahara::log::trace(fmt " [file:{}]" , __VA_ARGS__, __FILE__);
-#define LOG_WARN(fmt, ...) sahara::log::warn(fmt " [file:{}]" , __VA_ARGS__, __FILE__);
+#define LOG_DEBUG(fmt, ...) sahara::log::write(spdlog::level::debug, fmt " [file:{}]", __VA_ARGS__ , __FILE__);
+#define LOG_CRITICAL(fmt, ...) sahara::log::write(spdlog::level::critical, fmt " [file:{}]", __VA_ARGS__ , __FILE__);
+#define LOG_ERROR(fmt, ...) sahara::log::write(spdlog::level::err, fmt " [file:{}]", __VA_ARGS__ , __FILE__);
+#define LOG_INFO(fmt, ...) sahara::log::write(spdlog::level::info, fmt " [file:{}]", __VA_ARGS__ , __FILE__);
+#define LOG_TRACE(fmt, ...) sahara::log::write(spdlog::level::trace, fmt " [file:{}]", __VA_ARGS__ , __FILE__);
+#define LOG_WARN(fmt, ...) sahara::log::write(spdlog::level::warn, fmt " [file:{}]", __VA_ARGS__ , __FILE__);
+
+#define LOG_MODULE_DEBUG(module, fmt, ...) sahara::log::write(module, spdlog::level::debug, fmt " [file:{}]", __VA_ARGS__ , __FILE__);
+#define LOG_MODULE_CRITICAL(module, fmt, ...) sahara::log::write(module, spdlog::level::critical, fmt " [file:{}]", __VA_ARGS__ , __FILE__);
+#define LOG_MODULE_ERROR(module, fmt, ...) sahara::log::write(module, spdlog::level::err, fmt " [file:{}]", __VA_ARGS__ , __FILE__);
+#define LOG_MODULE_INFO(module, fmt, ...) sahara::log::write(module, spdlog::level::info, fmt " [file:{}]", __VA_ARGS__ , __FILE__);
+#define LOG_MODULE_TRACE(module, fmt, ...) sahara::log::write(module, spdlog::level::trace, fmt " [file:{}]", __VA_ARGS__ , __FILE__);
+#define LOG_MODULE_WARN(module, fmt, ...) sahara::log::write(module, spdlog::level::warn, fmt " [file:{}]", __VA_ARGS__ , __FILE__);
 } // sahara
 
 #endif //SAHARA_LOG_H
