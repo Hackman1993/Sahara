@@ -5,5 +5,5 @@
 #include <iostream>
 int main(){
     sahara::log::set_level(spdlog::level::debug);
-    LOG_DEBUG("hello world{}", 1)
+    LOG_DEBUG("hello world{}", 1);
 }

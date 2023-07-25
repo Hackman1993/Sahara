@@ -16,5 +16,6 @@ namespace sahara {
 
     void log::set_level(spdlog::level::level_enum level) {
         spdlog::set_level(level);
+        LOG_DEBUG("Level Switched");
     }
 } // sahara
