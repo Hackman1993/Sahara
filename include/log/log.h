@@ -8,7 +8,7 @@
 #include <spdlog/sinks/sink.h>
 #include <spdlog/logger.h>
 #include <spdlog/spdlog.h>
-
+#include <spdlog/sinks/stdout_color_sinks.h>
 namespace sahara {
 
     template<typename... Args>
@@ -19,8 +19,20 @@ namespace sahara {
         static void set_level(spdlog::level::level_enum level){
             spdlog::set_level(level);
         };
+        static void set_level(const std::string& mod, spdlog::level::level_enum level){
+            auto logger = spdlog::get(mod);
+            if(!logger)
+            {
+                logger = spdlog::stdout_color_mt(mod);
+            }
+            logger->set_level(level);
+        };
         static void add_logger(const std::shared_ptr<spdlog::logger>& logger){
             spdlog::register_logger(logger);
+        };
+        static void add_sink(const std::string& mod, const std::shared_ptr<spdlog::sinks::sink>& sink){
+            auto logger = spdlog::get(mod);
+            if(logger) logger->sinks().push_back(sink);
         };
         static void add_sink(const std::shared_ptr<spdlog::sinks::sink>& sink){
             spdlog::default_logger()->sinks().push_back(sink);
@@ -29,6 +41,16 @@ namespace sahara {
         template<typename... Args>
         static void write(spdlog::level::level_enum level, format_string_t<Args...> fmt, Args &&... args) {
             spdlog::log(level, fmt, std::forward<Args>(args)...);
+        }
+
+        template<typename... Args>
+        static void write(const std::string& mod, spdlog::level::level_enum level, format_string_t<Args...> fmt, Args &&... args) {
+            auto logger = spdlog::get(mod);
+            if(!logger)
+            {
+                logger = spdlog::stdout_color_mt(mod);
+            }
+            logger->log(level, fmt, std::forward<Args>(args)...);
         }
     };
 
