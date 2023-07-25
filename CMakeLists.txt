@@ -15,11 +15,11 @@ find_package(spdlog CONFIG REQUIRED)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_library(${PROJECT_NAME} STATIC ${CPP_HEADERS} ${CPP_SOURCES})
+add_library(${PROJECT_NAME} ${CPP_HEADERS} ${CPP_SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 target_link_libraries(${PROJECT_NAME} PRIVATE $<${WIN32}: bcrypt> fmt::fmt date::date date::date-tz)
-target_link_libraries(${PROJECT_NAME} INTERFACE spdlog::spdlog)
+target_link_libraries(${PROJECT_NAME} PUBLIC spdlog::spdlog)
 
 configure_package_config_file(cmake/template/sahara.in.cmake
         sahara-config.cmake
