@@ -13,4 +13,8 @@ namespace sahara {
     void log::add_logger(const std::shared_ptr<spdlog::logger> &logger) {
         spdlog::register_logger(logger);
     }
+
+    void log::set_level(spdlog::level::level_enum level) {
+        spdlog::set_level(level);
+    }
 } // sahara
