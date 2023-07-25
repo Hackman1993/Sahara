@@ -4,7 +4,6 @@
 
 #include "log/log.h"
 #include <spdlog/spdlog.h>
-#include <spdlog/sinks/daily_file_sink.h>
 namespace sahara {
     void log::add_sink(const std::shared_ptr<spdlog::sinks::sink>& sink) {
         spdlog::default_logger()->sinks().push_back(sink);
@@ -16,6 +15,5 @@ namespace sahara {
 
     void log::set_level(spdlog::level::level_enum level) {
         spdlog::set_level(level);
-        LOG_DEBUG("Level Switched");
     }
 } // sahara
