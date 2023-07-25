@@ -5,7 +5,6 @@
 #ifndef LIBSAHARA_NULLABLE_H
 #define LIBSAHARA_NULLABLE_H
 #include <string>
-#include <fmt/format.h>
 #include <variant>
 #include "dirtyable.h"
 #include "../time/timestamp.h"

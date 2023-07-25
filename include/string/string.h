@@ -86,22 +86,22 @@ namespace sahara {
     std::string string_;
   };
 }
-template<>
-struct fmt::formatter<sahara::string> {
-  constexpr auto parse(format_parse_context &ctx) { return ctx.begin(); }
-
-  template<typename FormatContext>
-  auto format(const sahara::string &p, FormatContext &ctx) {
-    return fmt::format_to(ctx.out(), "{}", p.to_std());
-  }
-};
-
-namespace std {
-  template<>
-  struct hash<sahara::string> {
-    std::size_t operator()(const sahara::string &str) const noexcept {
-      return std::hash<std::string>()(str.to_std());
-    }
-  };
-}
+//template<>
+//struct fmt::formatter<sahara::string> {
+//  constexpr auto parse(format_parse_context &ctx) { return ctx.begin(); }
+//
+//  template<typename FormatContext>
+//  auto format(const sahara::string &p, FormatContext &ctx) {
+//    return fmt::format_to(ctx.out(), "{}", p.to_std());
+//  }
+//};
+//
+//namespace std {
+//  template<>
+//  struct hash<sahara::string> {
+//    std::size_t operator()(const sahara::string &str) const noexcept {
+//      return std::hash<std::string>()(str.to_std());
+//    }
+//  };
+//}
 #endif //LIBSAHARA_STRING_H
