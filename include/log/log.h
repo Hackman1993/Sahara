@@ -32,7 +32,12 @@ namespace sahara {
         };
         static void add_sink(const std::string& mod, const std::shared_ptr<spdlog::sinks::sink>& sink){
             auto logger = spdlog::get(mod);
-            if(logger) logger->sinks().push_back(sink);
+            if(!logger) {
+                logger = std::make_shared<spdlog::logger>("mod", sink);
+                spdlog::register_logger(logger);
+            }
+            else
+                logger->sinks().push_back(sink);
         };
         static void add_sink(const std::shared_ptr<spdlog::sinks::sink>& sink){
             spdlog::default_logger()->sinks().push_back(sink);
