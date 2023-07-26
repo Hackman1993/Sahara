@@ -16,17 +16,10 @@ namespace sahara {
 
     class log {
     public:
-        static void set_level(spdlog::level::level_enum level){
-            spdlog::set_level(level);
-        };
-        static void set_level(const std::string& mod, spdlog::level::level_enum level){
-            auto logger = spdlog::get(mod);
-            if(!logger)
-            {
-                logger = spdlog::stdout_color_mt(mod);
-            }
-            logger->set_level(level);
-        };
+        static std::shared_ptr<spdlog::logger> logger_;
+        static void initialize();
+        static void set_level(spdlog::level::level_enum level);
+        static void set_level(const std::string& mod, spdlog::level::level_enum level);
         static void add_logger(const std::shared_ptr<spdlog::logger>& logger){
             spdlog::register_logger(logger);
         };
