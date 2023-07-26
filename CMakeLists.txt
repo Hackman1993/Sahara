@@ -19,7 +19,7 @@ add_library(${PROJECT_NAME} STATIC ${CPP_HEADERS} ${CPP_SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 target_link_libraries(${PROJECT_NAME} PRIVATE $<${WIN32}: bcrypt> fmt::fmt date::date date::date-tz)
-target_link_libraries(${PROJECT_NAME} PUBLIC spdlog::spdlog)
+target_link_libraries(${PROJECT_NAME} PUBLIC spdlog::spdlog_header_only)
 
 configure_package_config_file(cmake/template/sahara.in.cmake
         sahara-config.cmake
@@ -45,4 +45,4 @@ install(EXPORT sahara-targets NAMESPACE sahara:: DESTINATION share/${PROJECT_NAM
 
 add_executable(${PROJECT_NAME}-test ${CPP_TESTS})
 target_include_directories(${PROJECT_NAME}-test PRIVATE include)
-target_link_libraries(${PROJECT_NAME}-test PRIVATE ${PROJECT_NAME} sahara spdlog::spdlog)
+target_link_libraries(${PROJECT_NAME}-test PRIVATE ${PROJECT_NAME} sahara spdlog::spdlog_header_only)
