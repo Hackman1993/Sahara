@@ -2,10 +2,9 @@
 // Created by Hackman.Lo on 7/25/2023.
 //
 #include "log/log.h"
+#include "string/string.h"
 #include <iostream>
 int main(){
-    sahara::log::initialize();
-    sahara::log::set_level(spdlog::level::trace);
-    LOG_TRACE("hello world{}", 1);
-    LOG_MODULE_DEBUG("console", "hello world{}", 1);
+    sahara::string str = "/api/user/login?account=admin&password=123123";
+    std::cout << str.substr(0, str.find_first("?")) << std::endl;
 }

@@ -29,14 +29,16 @@ namespace sahara{
       auto range = boost::find_first(string_, other.string_);
       if(range.empty())
           return -1;
-    return range.size();
+      auto data = range.begin() - string_.begin();
+    return data;
   }
 
   std::int64_t string::ifind_first(const string &other) const {
-      auto range = boost::ifind_first(string_, other.string_);
+      auto range = boost::find_first(string_, other.string_);
       if(range.empty())
           return -1;
-      return range.size();
+      auto data = range.begin() - string_.begin();
+      return data;
   }
 
     std::string &string::std_ref() {
