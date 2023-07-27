@@ -29,7 +29,7 @@ namespace sahara{
       auto range = boost::find_first(string_, other.string_);
       if(range.empty())
           return -1;
-      auto data = range.begin() - string_.begin();
+      auto data = range.end() - string_.begin();
     return data;
   }
 
@@ -37,7 +37,7 @@ namespace sahara{
       auto range = boost::find_first(string_, other.string_);
       if(range.empty())
           return -1;
-      auto data = range.begin() - string_.begin();
+      auto data = range.end() - string_.begin();
       return data;
   }
 
