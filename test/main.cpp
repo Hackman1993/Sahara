@@ -1,10 +1,12 @@
 //
 // Created by Hackman.Lo on 7/25/2023.
 //
-#include "log/log.h"
-#include "string/string.h"
+#include "include/exception/exception.h"
 #include <iostream>
 int main(){
-    sahara::string str = "/api/user/login?account=admin&password=123123";
-    std::cout << str.substr(0, str.find_first("?")) << std::endl;
+    try{
+        THROW(sahara::exception::database_exception,"sahara", "Wired", 200);
+    }catch (sahara::exception::exception_base& e){
+        std::cout << e.what() << std::endl;
+    }
 }

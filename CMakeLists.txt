@@ -15,7 +15,8 @@ find_package(spdlog CONFIG REQUIRED)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_library(${PROJECT_NAME} STATIC ${CPP_HEADERS} ${CPP_SOURCES})
+add_library(${PROJECT_NAME} STATIC ${CPP_HEADERS} ${CPP_SOURCES}
+        source/exception/exception_base.cpp)
 target_include_directories(${PROJECT_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 target_link_libraries(${PROJECT_NAME} PRIVATE $<${WIN32}: bcrypt> fmt::fmt date::date date::date-tz)
@@ -44,5 +45,5 @@ install(DIRECTORY include/ DESTINATION include/sahara FILES_MATCHING PATTERN "*.
 install(EXPORT sahara-targets NAMESPACE sahara:: DESTINATION share/${PROJECT_NAME})
 
 #add_executable(${PROJECT_NAME}-test ${CPP_TESTS})
-#target_include_directories(${PROJECT_NAME}-test PRIVATE include)
+#target_include_directories(${PROJECT_NAME}-test PRIVATE .)
 #target_link_libraries(${PROJECT_NAME}-test PRIVATE ${PROJECT_NAME} sahara spdlog::spdlog_header_only)
