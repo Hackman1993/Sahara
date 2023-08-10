@@ -15,11 +15,14 @@ namespace sahara::exception {
             what_ = std::format("[{}:{}, line {}] {}", module, file, line, str_what);
         };
 
-        const char *what() const override {
+        std::string_view message() const {
             return what_.c_str();
         }
 
     protected:
+        const char *what() const final {
+            return "";
+        }
         std::string module_;
         std::string what_;
         std::string file_;
