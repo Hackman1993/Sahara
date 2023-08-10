@@ -4,21 +4,27 @@
 
 #ifndef LIBSAHARA_EXCEPTION_BASE_H
 #define LIBSAHARA_EXCEPTION_BASE_H
+
 #include <string>
 #include "../string/string.h"
 
 namespace sahara::exception {
-  class exception_base :public std::exception{
-  public:
-    exception_base(const sahara::string& str_what) : what_(str_what){};
+    class exception_base : public std::exception {
+    public:
+        exception_base(const std::string &str_what, const std::string &file, unsigned int line, const std::string &module = "sahara") : file_(file), line_(line), module_(module) {
+            what_ = std::format("[{}:{}, line {}] {}", module, file, line, str_what);
+        };
 
-      const char *what() const override {
-          return what_.c_str();
-      }
+        const char *what() const override {
+            return what_.c_str();
+        }
 
-  protected:
-      std::string what_;
-  };
+    protected:
+        std::string module_;
+        std::string what_;
+        std::string file_;
+        unsigned int line_ = 0;
+    };
 } // sahara::exception
 
 #endif //LIBSAHARA_EXCEPTION_BASE_H

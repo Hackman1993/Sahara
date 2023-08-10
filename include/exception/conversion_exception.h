@@ -11,7 +11,7 @@ namespace sahara::exception {
 
   class conversion_exception : exception_base{
   public:
-    explicit conversion_exception(const sahara::string& message): exception_base(message){}
+    explicit conversion_exception(const std::string& message, const std::string &file, unsigned int line): exception_base(message, file, line){}
   };
 } // sahara::exception
 
