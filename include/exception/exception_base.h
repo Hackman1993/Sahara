@@ -16,7 +16,7 @@ namespace sahara::exception {
         };
 
         std::string_view message() const {
-            return what_.c_str();
+            return what_;
         }
 
     protected:
