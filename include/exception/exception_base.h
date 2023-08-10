@@ -16,4 +16,6 @@ namespace sahara::exception {
     };
 } // sahara::exception
 
+#define THROW(type, module, what, ...) throw type(sahara::exception::exception_base::format_exception(what, module, __FILE__, __LINE__).c_str(), __VA_ARGS__)
+
 #endif //LIBSAHARA_EXCEPTION_BASE_H
