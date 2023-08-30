@@ -11,8 +11,15 @@
 namespace sahara::exception {
     class exception_base : public std::exception {
     public:
-        exception_base(const std::string& message) : std::exception(message.c_str()) {};
+        exception_base(const std::string& message) {
+            message_ = new char [message.size() + 1];
+            memcpy(message_, message.data(), message.size());
+        };
+        const char * what() const noexcept override;
         static std::string format_exception(const std::string& what, const std::string& module, const std::string& file, unsigned int line);
+
+    protected:
+        char *message_ = nullptr;
     };
 } // sahara::exception
 
