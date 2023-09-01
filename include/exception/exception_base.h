@@ -6,6 +6,7 @@
 #define LIBSAHARA_EXCEPTION_BASE_H
 
 #include <string>
+#include <cstring>
 #include <exception>
 
 namespace sahara::exception {
