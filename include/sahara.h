@@ -6,5 +6,6 @@
 #define SAHARA_SAHARA_H
 #include "log/log.h"
 #include "utils/uuid.h"
+#include "container/container.h"
 
 #endif //SAHARA_SAHARA_H
