@@ -13,6 +13,7 @@ namespace sahara {
         static void to_lower(std::string& str);
         static std::string to_lower_copy(const std::string& str);
         static bool iequals(const std::string& s1, const std::string& s2);
+        static bool icontains(const std::string& s, const std::string &find);
     };
 
 } // sahara::string
