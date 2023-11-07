@@ -15,8 +15,6 @@ namespace sahara {
         static bool iequals(const std::string& s1, const std::string& s2);
 
         static bool icontains(const std::string& s, const std::string &find);
-        static bool icontains(const std::string_view& s, const std::string& find);
-        static bool icontains(const std::string& s, const std::string_view& find);
         static bool icontains(const std::string_view& s, const std::string_view& find);
     };
 
