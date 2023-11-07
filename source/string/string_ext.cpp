@@ -28,8 +28,4 @@ namespace sahara {
     bool string_ext::icontains(const std::string &s, const std::string &find) {
         return boost::algorithm::icontains(s, find);
     }
-
-    bool string_ext::icontains(const std::string_view &s, const std::string_view &find) {
-        return boost::algorithm::icontains(s, find);
-    }
 } // sahara
