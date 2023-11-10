@@ -5,18 +5,12 @@
 #include "include/exception/conversion_exception.h"
 #include "include/container/unordered_smap_u.h"
 #include <iostream>
+#include "include/stream/multipart_istream.h"
 int main(){
     try{
-        std::unordered_map<std::string, std::string> umap2({
-                                                                   {"BCQQA", "CDCEF"},
-                                                                   {"BCQBA", "CDCEF"},
-                                                           });
-        sahara::container::unordered_smap_u<std::string> umap({
-                                                                      {"BCQQA", "CDCEF"},
-                                                                      {"BCQBA", "CDCEF"},
-        });
-        auto a = umap.contains("bcqqa");
-        auto b = umap.contains("BCQBA");
+        sahara::stream::multipart_istream stream;
+        stream.size();
+
     }catch (sahara::exception::exception_base& e){
         std::cout << e.what() << std::endl;
     }
