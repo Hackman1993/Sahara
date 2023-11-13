@@ -6,5 +6,6 @@
 #define SAHARA_SAHARA_H
 #include "utils/uuid.h"
 #include "container/container.h"
+#include "stream/temp_fstream.h"
 
 #endif //SAHARA_SAHARA_H

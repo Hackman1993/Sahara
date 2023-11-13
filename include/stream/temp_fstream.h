@@ -5,16 +5,20 @@
 #ifndef SAHARA_TEMP_FSTREAM_H
 #define SAHARA_TEMP_FSTREAM_H
 
-#include <filesystem>
-#include "iostream.h"
+#include "fstream.h"
 namespace sahara::stream {
-
-    class temp_fstream : sahara::stream::iostream{
+    class temp_fstream : public fstream{
     public:
-        explicit temp_fstream(const std::string& path) : path_(path){};
-        explicit temp_fstream(std::filesystem::path path): path_(std::move(path)){};
-    protected:
-        std::filesystem::path path_;
+        template<typename ...Args>
+        temp_fstream(std::filesystem::path path, Args... args): fstream(path,std::forward<Args>(args)...){}
+
+        virtual ~temp_fstream(){
+            if(std::filesystem::is_regular_file(path())){
+                std::filesystem::remove(path());
+            }
+        }
+
+
     };
 
 } // sahara::stream
