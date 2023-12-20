@@ -7,8 +7,6 @@
 #include <iostream>
 #include <fstream>
 #include <filesystem>
-#include "include/stream/fstream.h"
-//#include "include/stream/stl_stream_wrapper.h"
 
 class base{
 public:
@@ -34,12 +32,7 @@ public:
 };
 int main(){
     try{
-        sahara::stream::fstream stream(R"(D:/Workspace/Cpp/LibraryOrganized/libraries/sahara/include/stream/fstream.h)", std::ios::in|std::ios::binary);
-        C c(10);
-        std::cout << c.a() << c.b()<< std::endl;
-//        stream.size();
-//        std::ifstream t("./test");
-//        sahara::stream::stl_stream_wrapper<std::ifstream> wrapper(std::filesystem::path("./test"));
+
 
     }catch (sahara::exception::exception_base& e){
         std::cout << e.what() << std::endl;
