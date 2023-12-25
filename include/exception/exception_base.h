@@ -23,9 +23,8 @@ namespace sahara::exception {
         static std::string format_exception(const std::string&what, const std::string&module, const std::string&file,
                                             unsigned int line);
 
-        ~exception_base() {
-            if (message_)
-                delete []message_;
+        ~exception_base() override {
+            delete []message_;
         }
 
     protected:

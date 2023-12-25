@@ -16,6 +16,11 @@ namespace sahara {
 
         static bool icontains(const std::string& s, const std::string &find);
         static bool icontains(const std::string_view& s, const std::string_view& find);
+
+        static std::string url_decode(const std::string& str);
+        static std::string url_decode(std::string_view str);
+        static std::string url_encode(const std::string& str);
+        static std::string url_encode(std::string_view str);
     };
 
 } // sahara::string

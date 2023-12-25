@@ -3,6 +3,10 @@
 //
 
 #include "string/string_ext.h"
+
+#include <iomanip>
+#include <sstream>
+#include <boost/algorithm/hex.hpp>
 #include <boost/algorithm/string.hpp>
 namespace sahara {
     void string_ext::to_upper(std::string &str) {
@@ -31,5 +35,44 @@ namespace sahara {
 
     bool string_ext::icontains(const std::string_view &s, const std::string_view &find) {
         return boost::algorithm::icontains(s, find);
+    }
+
+    std::string string_ext::url_decode(const std::string& str) {
+        return url_decode(std::string_view(str.data(), str.length()));
+    }
+
+    std::string string_ext::url_decode(const std::string_view str) {
+        std::ostringstream ostream;
+        for(auto i = 0;i < str.length(); ++i){
+            if(i+2 >= str.length()) {
+                ostream << str[i];
+            }
+            else if(str[i] == '%'){
+                ostream << boost::algorithm::unhex(std::string(str.substr(i+1, 2)));
+                i+= 2;
+            }else{
+                ostream << str[i];
+            }
+        }
+        return ostream.str();
+    }
+
+    std::string string_ext::url_encode(const std::string& str) {
+        return url_encode(std::string_view(str.data(), str.length()));
+    }
+
+    std::string string_ext::url_encode(const std::string_view str) {
+        std::ostringstream encoded;
+        encoded.fill('0');
+        encoded << std::hex << std::uppercase;
+
+        for (const char c : str) {
+            if (std::isalnum(c) || c == '-' || c == '_' || c == '.' || c == '~') {
+                encoded << c;
+            } else {
+                encoded << '%' << std::setw(2) << static_cast<unsigned int>(static_cast<unsigned char>(c));
+            }
+        }
+        return encoded.str();
     }
 } // sahara
