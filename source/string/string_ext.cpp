@@ -75,4 +75,13 @@ namespace sahara {
         }
         return encoded.str();
     }
+
+    std::string string_ext::time_format(const std::chrono::system_clock::time_point& tp, const std::string& format) {
+        std::stringstream ss;
+        const std::time_t time = std::chrono::system_clock::to_time_t(tp);
+        const auto tm = std::gmtime(&time);
+
+        ss << std::put_time(tm, format.c_str());
+        return ss.str();
+    }
 } // sahara

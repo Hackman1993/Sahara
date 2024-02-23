@@ -4,6 +4,7 @@
 
 #ifndef SAHARA_STRING_EXT_H
 #define SAHARA_STRING_EXT_H
+#include <chrono>
 #include <string>
 namespace sahara {
     class string_ext{
@@ -21,6 +22,8 @@ namespace sahara {
         static std::string url_decode(std::string_view str);
         static std::string url_encode(const std::string& str);
         static std::string url_encode(std::string_view str);
+
+        static std::string time_format(const std::chrono::system_clock::time_point& tp, const std::string& format);
     };
 
 } // sahara::string
