@@ -311,26 +311,41 @@ namespace sahara::hash {
         }
     }
 
-    std::string bcrypt::generateHash(const std::string&password, unsigned int rounds) {
+    std::string bcrypt::generateHash(const char* password, std::size_t length, std::uint8_t rounds) {
         char salt[_SALT_LEN];
-
         unsigned char seed[17]{};
         bcrypt_impl::arc4random_init();
 
         bcrypt_impl::arc4random_buf(seed, 16);
 
         bcrypt_impl::bcrypt_gensalt('b', rounds, seed, salt);
-
         std::string hash(61, '\0');
-        bcrypt_impl::node_bcrypt(password.c_str(), password.size(), salt, &hash[0]);
+        bcrypt_impl::node_bcrypt(password, length, salt, &hash[0]);
         hash.resize(60);
         return hash;
     }
 
-    bool bcrypt::validatePassword(const std::string&password, const std::string&hash) {
+    std::string bcrypt::generateHash(const std::string&password, unsigned int rounds) {
+        return generateHash(password.c_str(), password.length(), rounds);;
+    }
+
+    std::string bcrypt::generateHash(const std::string_view& password, unsigned rounds) {
+        return generateHash(password.data(), password.length(), rounds);
+    }
+
+    bool bcrypt::validatePassword(const char* password, std::size_t password_length, const char* hash, std::size_t hash_length) {
         std::string got(61, '\0');
-        bcrypt_impl::node_bcrypt(password.c_str(), password.size(), hash.c_str(), &got[0]);
+        bcrypt_impl::node_bcrypt(password, password_length, hash, &got[0]);
         got.resize(60);
-        return hash == got;
+        const std::string_view hash_val(hash, hash_length);
+        return hash_val == got;
+    }
+
+    bool bcrypt::validatePassword(const std::string&password, const std::string&hash) {
+        return validatePassword(password.c_str(),password.length(), hash.c_str(), hash.size());
+    }
+
+    bool bcrypt::validatePassword(const std::string_view& password, const std::string_view& hash) {
+        return validatePassword(password.data(),password.length(), hash.data(), hash.size());
     }
 }
