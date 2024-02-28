@@ -40,7 +40,7 @@
  */
 
 #include "hash/bcrypt/node_blf.h"
-namespace sahara::hash::bcrypt::impl{
+namespace sahara::hash::bcrypt_impl{
 #undef inline
 #ifdef __GNUC__
 #define inline __inline

@@ -36,7 +36,7 @@
 
 #include <sys/types.h>
 
-namespace sahara::hash::bcrypt::impl {
+namespace sahara::hash::bcrypt_impl {
     /* Solaris compatibility */
 #ifdef __sun
 #define u_int8_t uint8_t

@@ -6,7 +6,7 @@
 #include <cstring>
 #include <ctime>
 
-namespace sahara::hash::bcrypt::impl{
+namespace sahara::hash::bcrypt_impl{
     inline void arc4random_buf(void *buf, size_t nbytes)
     {
         for( size_t n = 0; n < nbytes; ++ n)

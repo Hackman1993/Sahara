@@ -42,8 +42,8 @@
 #include "hash/bcrypt.h"
 #include "hash/bcrypt/openbsd.h"
 
-namespace sahara::hash::bcrypt {
-    namespace impl {
+namespace sahara::hash {
+    namespace bcrypt_impl {
 #ifdef _WIN32
 #define snprintf _snprintf
 #endif
@@ -315,21 +315,21 @@ namespace sahara::hash::bcrypt {
         char salt[_SALT_LEN];
 
         unsigned char seed[17]{};
-        impl::arc4random_init();
+        bcrypt_impl::arc4random_init();
 
-        impl::arc4random_buf(seed, 16);
+        bcrypt_impl::arc4random_buf(seed, 16);
 
-        impl::bcrypt_gensalt('b', rounds, seed, salt);
+        bcrypt_impl::bcrypt_gensalt('b', rounds, seed, salt);
 
         std::string hash(61, '\0');
-        impl::node_bcrypt(password.c_str(), password.size(), salt, &hash[0]);
+        bcrypt_impl::node_bcrypt(password.c_str(), password.size(), salt, &hash[0]);
         hash.resize(60);
         return hash;
     }
 
     bool bcrypt::validatePassword(const std::string&password, const std::string&hash) {
         std::string got(61, '\0');
-        impl::node_bcrypt(password.c_str(), password.size(), hash.c_str(), &got[0]);
+        bcrypt_impl::node_bcrypt(password.c_str(), password.size(), hash.c_str(), &got[0]);
         got.resize(60);
         return hash == got;
     }
