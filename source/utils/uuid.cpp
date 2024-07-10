@@ -8,6 +8,6 @@
 
 namespace sahara::utils {
   std::string uuid::generate() {
-    return boost::uuids::to_string(boost::uuids::random_generator()());
+    return to_string(boost::uuids::random_generator()());
   }
 } // utils
