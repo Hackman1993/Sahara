@@ -8,6 +8,9 @@
 #include <fstream>
 #include <filesystem>
 
+#include "include/hash/bcrypt.h"
+#include "include/hash/bcrypt/node_blf.h"
+
 class base{
 public:
     explicit base(int a):a_(a){};
@@ -32,7 +35,8 @@ public:
 };
 int main(){
     try{
-
+        auto result  = sahara::hash::bcrypt::validatePassword(std::string("Crown@1188"), std::string("$2y$10$F3s9WvsW27KXEbuCoKWGDu/ULHYlJRALXo/tfUbkkR/jMn7NK4aKi"));
+        result = false;
 
     }catch (sahara::exception::exception_base& e){
         std::cout << e.what() << std::endl;

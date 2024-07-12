@@ -170,6 +170,7 @@ namespace sahara::hash {
                 switch (salt[1]) {
                     case 'a': /* 'ab' should not yield the same as 'abab' */
                     case 'b': /* cap input length at 72 bytes */
+                    case 'y':
                         minor = salt[1];
                         salt++;
                         break;
