@@ -2,6 +2,7 @@
 #define BCRYPT_H
 
 #include <string>
+#include <cstdint>
 
 namespace sahara::hash {
     struct bcrypt{
