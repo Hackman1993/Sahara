@@ -4,6 +4,7 @@ add_requires("boost ~1.87.0", {configs = {locale = true, cmake = false}})
 target("sahara")
     set_kind("static")
     add_files("source/**/*.cpp")
+    add_files("include/**/*.h")
     add_includedirs("include")
     add_packages("spdlog", "boost", "fmt", "date")
 
