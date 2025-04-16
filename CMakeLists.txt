@@ -8,7 +8,7 @@ file(GLOB_RECURSE CPP_SOURCES source/*.cpp source/*.cc)
 
 file(GLOB_RECURSE CPP_TESTS test/*.cpp test/*.cc)
 
-find_package(Boost REQUIRED COMPONENTS locale)
+find_package(Boost REQUIRED COMPONENTS locale uuid)
 find_package(fmt REQUIRED)
 find_package(date REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
