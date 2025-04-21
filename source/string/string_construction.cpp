@@ -1,6 +1,6 @@
 #include <utility>
 #include <boost/locale.hpp>
-#include "../../include/string/string.h"
+#include "string/string.h"
 #include <boost/locale/encoding_utf.hpp>
 
 namespace sahara {

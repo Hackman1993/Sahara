@@ -1,5 +1,5 @@
 
-#include "../../include/string/string.h"
+#include "string/string.h"
 #include <iostream>
 #include <iomanip>
 #include <codecvt>
